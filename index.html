@@ -10,9 +10,45 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark_1: '#111111',
+                        dark_2: '#585858',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body>
+
+
+    <header>
+        <section>
+            <div class=" mt-10">
+                <h1 class="text-4xl font-semibold text-center">AI Universe Hub</h1>
+            </div>
+            <div class="text-center mt-8">
+                <button type="button"
+                    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Sort
+                    By Date</button>
+
+            </div>
+        </section>
+    </header>
+
+
+    <main class="w-11/12 mx-auto">
+        <section id="card-container" class="grid grid-cols-3 gap-6 mt-16">
+
+
+        </section>
+    </main>
 
 
 
@@ -23,6 +59,7 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/d30db6726a.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
+    <script src="./assets/js/script.js"></script>
 
 </body>
 
