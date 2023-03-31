@@ -3,3 +3,12 @@
 body {
     font-family: 'Work Sans', sans-serif;
 }
+
+.universe-item {
+    transition: .2s ease-in;
+}
+
+.universe-item:hover {
+    transform: scale(.95);
+    box-shadow: none;
+}

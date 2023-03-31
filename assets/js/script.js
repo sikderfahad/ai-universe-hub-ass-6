@@ -1,13 +1,23 @@
-function loadData() {
+function loadData(isLimit) {
     const url = `https://openapi.programming-hero.com/api/ai/tools`
     fetch(url)
         .then(res => res.json())
-        .then(data => getData(data.data.tools))
+        .then(data => getData(data.data.tools, isLimit))
 }
 
-function getData(items) {
+function getData(items, isLimit) {
     const cardContainer = document.getElementById('card-container')
     cardContainer.textContent = ''
+
+    const showMore = document.getElementById('show-more-container')
+    if (isLimit) {
+        items = items.slice(0, 6)
+        showMore.classList.remove('hidden')
+    }
+    else {
+        showMore.classList.add('hidden')
+    }
+
 
     items.forEach(item => {
 
@@ -15,9 +25,9 @@ function getData(items) {
         aiCard.classList.add('universe-item', 'border', 'border-gray-200', 'rounded-lg', 'shadow-lg')
         aiCard.innerHTML = `
             <div
-                class=" p-6 dark:bg-gray-800 dark:border-gray-700">
+                class="2xl:p-8 lg:p-6 md:p-6 p-4 dark:bg-gray-800 dark:border-gray-700">
                 <div class="h-[300] w-full">
-                    <img class="rounded-lg" src="${item.image}" alt="" />
+                    <img class="rounded-lg w-full 2xl:h-auto xl:h-[250px] lg:h-[180px] h-[180px]" src="${item.image}" alt="" />
                 </div>
                 <div class="py-5">
                     <h5 class="mb-2 text-2xl font-semibold tracking-tight text-dark_1">Features</h5>
@@ -66,4 +76,9 @@ function getData(items) {
     })
 }
 
-loadData()
+loadData(6)
+
+
+document.getElementById('show-more-btn').addEventListener('click', function () {
+    loadData()
+})
