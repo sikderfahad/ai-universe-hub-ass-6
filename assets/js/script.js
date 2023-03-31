@@ -1,4 +1,6 @@
 function loadData(isLimit) {
+    spinner(true)
+
     const url = `https://openapi.programming-hero.com/api/ai/tools`
     fetch(url)
         .then(res => res.json())
@@ -72,13 +74,29 @@ function getData(items, isLimit) {
         
         `
         cardContainer.appendChild(aiCard)
+
         console.log(item)
     })
+    spinner()
 }
 
 loadData(6)
 
 
+// Show more button
 document.getElementById('show-more-btn').addEventListener('click', function () {
+    spinner(true)
     loadData()
 })
+
+
+// Spinner
+function spinner(isLoaded) {
+    const spinner = document.getElementById('spinner')
+    if (isLoaded) {
+        spinner.classList.remove('hidden')
+    }
+    else {
+        spinner.classList.add('hidden')
+    }
+}
