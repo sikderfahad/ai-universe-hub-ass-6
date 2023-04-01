@@ -204,30 +204,6 @@ function getShowDetails(user) {
 
 // Short by date button
 
-// function loadAllDate() {
-//     const url = `https://openapi.programming-hero.com/api/ai/tools`
-//     fetch(url)
-//         .then(res => res.json())
-//         .then(data => getDate(data.data.tools))
-
-// }
-// function getDate(allData) {
-//     let dataStore = []
-
-//     cusomShort = (a, b) => {
-//         const dateA = new Date(a.published_in)
-//         const dateB = new Date(b.published_in)
-//         if (dateA > dateB) return 1
-//         else if (dateA < dateB) return -1
-//         return 0
-//     }
-
-//     allData = allData.sort(cusomShort)
-//     console.log(allData)
-
-
-// }
-
 document.getElementById('btn-sort').addEventListener('click', function () {
     spinner(true)
     loadData(12, true)
