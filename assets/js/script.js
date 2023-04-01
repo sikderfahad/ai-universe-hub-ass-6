@@ -1,22 +1,36 @@
-function loadData(isLimit) {
+function loadData(isLimit, isSort) {
     spinner(true)
 
     const url = `https://openapi.programming-hero.com/api/ai/tools`
     fetch(url)
         .then(res => res.json())
-        .then(data => getData(data.data.tools, isLimit))
+        .then(data => getData(data.data.tools, isLimit, isSort))
 }
 
-function getData(items, isLimit) {
+function getData(items, isLimit, isSort) {
     const cardContainer = document.getElementById('card-container')
     cardContainer.textContent = ''
 
     const showMore = document.getElementById('show-more-container')
     if (isLimit) {
-        items = items.slice(0, 6)
+        items = items.slice(0, isLimit)
         showMore.classList.remove('hidden')
     }
     else {
+        showMore.classList.add('hidden')
+    }
+
+    // Data sorting by Date condition
+    if (isSort) {
+        cusomShort = (a, b) => {
+            const dateA = new Date(a.published_in)
+            const dateB = new Date(b.published_in)
+            if (dateA < dateB) return 1
+            else if (dateA > dateB) return -1
+            return 0
+        }
+
+        items = items.sort(cusomShort)
         showMore.classList.add('hidden')
     }
 
@@ -187,3 +201,38 @@ function getShowDetails(user) {
     `
 }
 
+
+// Short by date button
+
+// function loadAllDate() {
+//     const url = `https://openapi.programming-hero.com/api/ai/tools`
+//     fetch(url)
+//         .then(res => res.json())
+//         .then(data => getDate(data.data.tools))
+
+// }
+// function getDate(allData) {
+//     let dataStore = []
+
+//     cusomShort = (a, b) => {
+//         const dateA = new Date(a.published_in)
+//         const dateB = new Date(b.published_in)
+//         if (dateA > dateB) return 1
+//         else if (dateA < dateB) return -1
+//         return 0
+//     }
+
+//     allData = allData.sort(cusomShort)
+//     console.log(allData)
+
+
+// }
+
+document.getElementById('btn-sort').addEventListener('click', function () {
+    spinner(true)
+    loadData(12, true)
+    const sortBtn = document.getElementById('btn-sort')
+    sortBtn.setAttribute('disabled', true)
+    sortBtn.setAttribute('title', 'Its disabled! please reload...')
+    console.log('clicked')
+})
