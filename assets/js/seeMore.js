@@ -1,8 +1,3 @@
-// Show more button
-document.getElementById('show-more-btn').addEventListener('click', function () {
-    spinner(true)
-    loadData()
-})
 
 
 // Show Details Function
@@ -31,14 +26,14 @@ function getShowDetails(user) {
                                 <div class="pricing my-6 grid lg:grid-cols-3 grid-cols-2 gap-4 text-center">
 
                                     <div class="bg-white py-4 px-2 rounded-lg break-words	">
-                                        <p class="text-sm text-free_price font-semibold">${user.pricing[0].price === '0' ? 'Free of cost' : user.pricing[0].price} Basic<p/>
+                                        <p class="text-sm text-free_price font-semibold">${user.pricing ? user.pricing[0].price : 'Free of cost'} Basic<p/>
                                     </div>
                                     <div class="bg-white py-4 px-2 rounded-lg break-words	">
-                                        <p class="text-sm text-pro_price font-semibold">${user.pricing[1].price === '0' ? 'Free of cost' : user.pricing[1].price} Pro<p/>
+                                        <p class="text-sm text-pro_price font-semibold">${user.pricing ? user.pricing[1].price : 'Free of cost'} Pro<p/>
                                         
                                     </div>
                                     <div class="bg-white py-4 px-2 rounded-lg break-words	">
-                                        <p class="text-sm text-enter_price font-semibold">${user.pricing[2].price === '0' ? 'Free of cost' : user.pricing[2].price} Enterprise<p/>
+                                        <p class="text-sm text-enter_price font-semibold">${user.pricing ? user.pricing[2].price : 'Free of cost'} Enterprise<p/>
                                         
                                     </div>
                                 </div>
@@ -55,9 +50,9 @@ function getShowDetails(user) {
                                     <div>
                                         <h5 class="mb-2 text-2xl font-semibold tracking-tight text-dark_1">Integrations</h5>
                                         <ul class="list-decimal pl-6">
-                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.integrations[0]}</li>
-                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.integrations[1] ? user.integrations[1] : 'No data found'}</li>
-                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.integrations[2] ? user.integrations[1] : 'No data found'}</li>
+                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.integrations ? user.integrations[0] : 'Not data found'}</li>
+                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.integrations ? user.integrations[1] : 'No data found'}</li>
+                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.integrations ? user.integrations[2] : 'No data found'}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -69,7 +64,7 @@ function getShowDetails(user) {
                             <div class="  dark:bg-gray-800 dark:border-gray-700">
                                 <div class="relative">
                                     <img class="rounded-t-lg" src="${user.image_link[0]}" alt="" />
-                                    <p id="accuracy" class="w-fit absolute top-3 right-3 py-2 px-4 rounded-lg text-white text-sm font-medium bg-enter_price">${user.accuracy.score ? user.accuracy.score * 100 + '% Accuracy' : 'No accuray found!'} </p>
+                                    <p id="accuracy" class="w-fit absolute top-3 right-3 py-2 px-4 rounded-lg text-white text-sm font-medium bg-enter_price">${user.accuracy.score ? user.accuracy.score * 100 + '% Accuracy' : ''} </p>
                                 </div>
                                 <div class="p-5 text-center">
                                     <h5 id="inputText"
@@ -86,3 +81,13 @@ function getShowDetails(user) {
 
     `
 }
+
+
+// Show more button
+document.getElementById('show-more-btn').addEventListener('click', function () {
+    spinner(true)
+    loadData()
+})
+
+
+// <p id="accuracy" class="w-fit absolute top-3 right-3 py-2 px-4 rounded-lg text-white text-sm font-medium bg-enter_price">${user.accuracy.score ? user.accuracy.score * 100 + '% Accuracy' : null} </p>
