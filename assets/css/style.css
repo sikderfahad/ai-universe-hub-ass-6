@@ -12,3 +12,7 @@ body {
     transform: scale(.95);
     box-shadow: none;
 }
+
+#inputText {
+    transition: .3s ease-in;
+}

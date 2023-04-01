@@ -56,7 +56,7 @@ function getData(items, isLimit) {
                         </div>
 
                         <div>
-                            <label onclick="showDetails('${item.id}')" for="my-modal-5" class="inline-flex items-center p-3 text-sm font-medium text-center text-red-600 bg-red-100 rounded-full hover:bg-red-400 hover:text-white focus:outline-none">
+                            <label onclick="loadShowDetails('${item.id}')"  for="my-modal-5" class="inline-flex items-center p-3 text-sm font-medium text-center text-red-600 bg-red-100 rounded-full hover:bg-red-400 hover:text-white focus:outline-none">
                                 <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -93,12 +93,12 @@ document.getElementById('show-more-btn').addEventListener('click', function () {
 
 // Spinner
 function spinner(isLoaded) {
-    const spinner = document.getElementById('spinner')
+    const loader = document.getElementById('spinner')
     if (isLoaded) {
-        spinner.classList.remove('hidden')
+        loader.classList.remove('hidden')
     }
     else {
-        spinner.classList.add('hidden')
+        loader.classList.add('hidden')
     }
 }
 
@@ -107,38 +107,58 @@ function spinner(isLoaded) {
 
 // Show Details Button
 
-function showDetails(elementId) {
+function loadShowDetails(elementId) {
     const url = `https://openapi.programming-hero.com/api/ai/tool/${elementId}`
     fetch(url)
         .then(res => res.json())
-        .then(data => loadShowDetails(data.data))
+        .then(data => getShowDetails(data.data))
 
 }
 
-function loadShowDetails(user) {
+function getShowDetails(user) {
+    console.log(user)
     const modalContainer = document.getElementById('modal-container')
     modalContainer.innerHTML = `
-        <div class=" flex w-fit mx-auto gap-8">
+        <div class=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-fit mx-auto gap-8">
 
                         <!-- Modal card Left -->
                         <div class="border bg-[#EB57570D] border-[#EB5757] rounded-lg shadow">
                             <div
-                                class="block max-w-sm p-6 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-dark_1 dark:text-white">${user.description}
+                                class="block  p-6 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                <h5 class="mb-2 md:text-2xl text-xl font-semibold tracking-tight text-dark_1">${user.description}
                                 </h5>
-                                <div class="pricing my-6 flex justify-between gap-4 ">
 
-                                    <div class="bg-white w-fit h-fit p-4 rounded-lg">
-                                        <span>${user.pricing[0].price == 0 ? 'Free of cost' : user.pricing[0].price}<span/>
-                                        <span>Basic</span>
+                                <div class="pricing my-6 grid lg:grid-cols-3 grid-cols-2 gap-4 text-center">
+
+                                    <div class="bg-white py-4 px-2 rounded-lg break-words	">
+                                        <p class="text-sm text-free_price font-semibold">${user.pricing[0].price === '0' ? 'Free of cost' : user.pricing[0].price} Basic<p/>
                                     </div>
-                                    <div class="bg-white w-fit h-fit p-4 rounded-lg">
-                                        <span>${user.pricing[1].price == 0 ? 'Free of cost' : user.pricing[0].price}<span/>
-                                        <span>Pro</span>
+                                    <div class="bg-white py-4 px-2 rounded-lg break-words	">
+                                        <p class="text-sm text-pro_price font-semibold">${user.pricing[1].price === '0' ? 'Free of cost' : user.pricing[1].price} Pro<p/>
+                                        
                                     </div>
-                                    <div class="bg-white w-fit h-fit p-4 rounded-lg">
-                                        <span>${user.pricing[2].price == 0 ? 'Free of cost' : user.pricing[0].price}<span/>
-                                        <span>Enterprise</span>
+                                    <div class="bg-white py-4 px-2 rounded-lg break-words	">
+                                        <p class="text-sm text-enter_price font-semibold">${user.pricing[2].price === '0' ? 'Free of cost' : user.pricing[2].price} Enterprise<p/>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="grid md:grid-cols-2 grid-cols-1 gap-5">
+                                    <div>
+                                        <h5 class="mb-2 text-2xl font-semibold tracking-tight text-dark_1">Features</h5>
+                                        <ul class="list-decimal pl-6">
+                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.features[1].feature_name}</li>
+                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.features[2].feature_name}</li>
+                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.features[3].feature_name}</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-2 text-2xl font-semibold tracking-tight text-dark_1">Integrations</h5>
+                                        <ul class="list-decimal pl-6">
+                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.integrations[0]}</li>
+                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.integrations[1] ? user.integrations[1] : 'No data found'}</li>
+                                            <li class="2xl:text-base xl:text-sm text-sm font-medium text-dark_2">${user.integrations[2] ? user.integrations[1] : 'No data found'}</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -146,16 +166,14 @@ function loadShowDetails(user) {
 
                         <!-- Modal Card Right -->
                         <div class="bg-white border border-gray-200 rounded-lg shadow">
-                            <div class="max-w-sm  dark:bg-gray-800 dark:border-gray-700">
-                                <a href="#">
-                                    <img class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />
-                                </a>
+                            <div class="  dark:bg-gray-800 dark:border-gray-700">
+                                <div>
+                                    <img class="rounded-t-lg" src="${user.image_link[0]}" alt="" />
+                                </div>
                                 <div class="p-5">
                                     <a href="#">
-                                        <h5
-                                            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                            Noteworthy technology
-                                            acquisitions 2021</h5>
+                                        <h5 onmouseenter="textChanger('${user.id}', 'true')" onmouseleave="textChanger('${user.id}')" id="inputText"
+                                            class="mb-2 text-2xl font-semibold tracking-tight text-dark_1">${user.input_output_examples[0].input}</h5>
                                     </a>
                                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest
                                         enterprise technology
@@ -178,5 +196,28 @@ function loadShowDetails(user) {
                     </div>
     
     `
-    console.log(user)
+}
+
+
+
+// Mouse Over text Changer ----> Output
+function textChanger(elementId, hover) {
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${elementId}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => changeText(data.data, hover))
+}
+
+function changeText(data, hover) {
+    const inputText = document.getElementById('inputText')
+
+    if (hover) {
+
+        inputText.innerText = data.input_output_examples[0].output
+        inputText.style.color = '#03A30A'
+    }
+    else {
+        inputText.innerText = data.input_output_examples[0].input
+        inputText.style.color = '#111111'
+    }
 }
