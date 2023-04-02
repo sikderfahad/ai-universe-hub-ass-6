@@ -102,7 +102,3 @@ document.getElementById('show-more-btn').addEventListener('click', function () {
 })
 
 
-// <p id="accuracy" class="w-fit absolute top-3 right-3 py-2 px-4 rounded-lg text-white text-sm font-medium bg-enter_price">${user.accuracy.score ? user.accuracy.score * 100 + '% Accuracy' : null} </p>
-
-
-// ${user.accuracy.score ? user.accuracy.score * 100 + '% Accuracy' : ''}
