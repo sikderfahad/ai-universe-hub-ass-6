@@ -64,7 +64,7 @@ function getShowDetails(user) {
                             <div class="  dark:bg-gray-800 dark:border-gray-700">
                                 <div class="relative">
                                     <img class="rounded-t-lg" src="${user.image_link[0]}" alt="" />
-                                    <p id="accuracy" class="w-fit absolute top-3 right-3 py-2 px-4 rounded-lg text-white text-sm font-medium bg-enter_price">${user.accuracy.score ? user.accuracy.score * 100 + '% Accuracy' : ''} </p>
+                                    <p id="accuracy" class="hidden w-fit absolute top-3 right-3 py-2 px-4 rounded-lg text-white text-sm font-medium bg-enter_price">${user.accuracy.score ? user.accuracy.score * 100 + '% Accuracy' : ''} </p>
                                 </div>
                                 <div class="p-5 text-center">
                                     <h5 id="inputText"
@@ -80,6 +80,18 @@ function getShowDetails(user) {
                     </div>
 
     `
+
+
+    // Get & Set accuracy
+    const accuracy = document.getElementById('accuracy')
+    const accValue = user.accuracy.score * 100
+    if (accValue > 0) {
+        accuracy.classList.remove('hidden')
+        accuracy.innerText = accValue + '% Accuracy'
+    }
+    else {
+        accuracy.classList.add('hidden')
+    }
 }
 
 
@@ -91,3 +103,6 @@ document.getElementById('show-more-btn').addEventListener('click', function () {
 
 
 // <p id="accuracy" class="w-fit absolute top-3 right-3 py-2 px-4 rounded-lg text-white text-sm font-medium bg-enter_price">${user.accuracy.score ? user.accuracy.score * 100 + '% Accuracy' : null} </p>
+
+
+// ${user.accuracy.score ? user.accuracy.score * 100 + '% Accuracy' : ''}
